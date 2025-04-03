@@ -1,4 +1,4 @@
-import {FiSearch, FiUser, FiMail, FiLock, FiUsers, FiStar, FiGitBranch, FiClock } from 'react-icons/fi';
+import { FiSearch, FiUser, FiMail, FiLock, FiUsers, FiStar, FiGitBranch, FiClock } from 'react-icons/fi';
 
 const Dashboard = () => {
   // Sample user data
@@ -6,7 +6,7 @@ const Dashboard = () => {
     name: "Alex Johnson",
     username: "alexjohnson",
     email: "alex@example.com",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+    avatar: "https://marketplace.canva.com/EAFewoMXU-4/1/0/1600w/canva-purple-pink-gradient-man-3d-avatar-0o0qE2T_kr8.jpg",
     bio: "Full-stack developer building awesome things with SyncGrid",
     following: 24,
     followers: 18,
@@ -21,9 +21,46 @@ const Dashboard = () => {
     { type: "star", grid: "api-service", time: "3 days ago" }
   ];
 
+  // Heatmap data - last 6 months of activity
+  const heatmapData = generateHeatmapData();
+
+  function generateHeatmapData() {
+    const months = 6;
+    const daysInWeek = 7;
+    const weeksInMonth = 4;
+    const data = [];
+    
+    for (let m = 0; m < months; m++) {
+      const month = [];
+      for (let w = 0; w < weeksInMonth; w++) {
+        const week = [];
+        for (let d = 0; d < daysInWeek; d++) {
+          // Random activity level (0-4)
+          week.push(Math.floor(Math.random() * 5));
+        }
+        month.push(week);
+      }
+      data.push(month);
+    }
+    return data;
+  }
+
+  const getHeatmapColor = (level) => {
+    const colors = [
+      'bg-gray-700', 
+      'bg-indigo-900', 
+      'bg-indigo-700', 
+      'bg-indigo-500', 
+      'bg-indigo-300'
+    ];
+    return colors[level] || colors[0];
+  };
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
-      {/* Header - Same as before */}
+      {/* Header */}
       <header className="bg-gray-800 border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -114,6 +151,41 @@ const Dashboard = () => {
                   <div className="text-center">
                     <div className="text-2xl font-bold">{user.followers}</div>
                     <div className="text-gray-400 text-sm">Followers</div>
+                  </div>
+                </div>
+
+                {/* Heatmap Section */}
+                <div className="border-t border-gray-700 mt-6 pt-6">
+                  <h3 className="text-sm font-semibold text-gray-300 mb-3">Sync Activity</h3>
+                  <div className="flex items-end justify-between mb-2">
+                    {monthNames.map((month, i) => (
+                      <span key={i} className="text-xs text-gray-500">{month}</span>
+                    ))}
+                  </div>
+                  <div className="grid grid-flow-col grid-rows-7 gap-1">
+                    {heatmapData.flatMap((month, monthIndex) => 
+                      month.flatMap((week, weekIndex) => 
+                        week.map((day, dayIndex) => (
+                          <div 
+                            key={`${monthIndex}-${weekIndex}-${dayIndex}`}
+                            className={`w-3 h-3 rounded-sm ${getHeatmapColor(day)}`}
+                            title={`${day} syncs on day ${dayIndex + 1} of week ${weekIndex + 1}`}
+                          />
+                        ))
+                      )
+                    )}
+                  </div>
+                  <div className="flex justify-between mt-2">
+                    <span className="text-xs text-gray-500">Less</span>
+                    <div className="flex space-x-1">
+                      {[0, 1, 2, 3, 4].map((level) => (
+                        <div 
+                          key={level}
+                          className={`w-3 h-3 rounded-sm ${getHeatmapColor(level)}`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs text-gray-500">More</span>
                   </div>
                 </div>
               </div>
