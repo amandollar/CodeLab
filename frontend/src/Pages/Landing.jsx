@@ -60,7 +60,7 @@ const Landing = () => {
             </div>
             <div>
               <a
-                href="/auth"
+                href="/signup"
                 className="ml-4 px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-600 hover:to-purple-700 transition-all shadow-lg hover:shadow-indigo-500/20"
               >
                 Login / Signup

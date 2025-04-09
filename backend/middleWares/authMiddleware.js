@@ -1,18 +1,21 @@
 import jwt from "jsonwebtoken";
 
-const verify = async (req, res, next) => {
+const verify = (req, res, next) => {
+  const authHeader = req.header("Authorization");
+  if (!authHeader) {
+    return res.status(401).json({ error: "Unauthorized: No token provided" });
+  }
 
-    const token = req.header('Authorization');
- 
-    if (!token) return res.status(401).json({ error: "Un-Authorized" });
-
-
-    try {
-        req.user = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        next();
-    } catch (error) {
-        res.status(400).json('Invalid token');
-    }
-}
+  const [scheme, token] = authHeader.split(" ");
+  if (scheme !== "Bearer" || !token) {
+    return res.status(401).json({ error: "Unauthorized: Malformed token" });
+  }
+  try {
+    req.user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: "Unauthorized: Invalid token" });
+  }
+};
 
 export default verify;
