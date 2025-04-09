@@ -3,16 +3,19 @@ import Landing from "./Pages/Landing";
 import SyncGridHome from "./Pages/SyncGridHome";
 import Dashboard from "./Pages/Dashboard";
 import SyncGridSetup from "./Pages/SyncGridSetUp";
+import Codebot from "./Pages/Codebot.jsx";
+import Compiler from "./Pages/Compiler.jsx";
 import Signup from "./auth/Signup";
 import Login from "./auth/Login";
 import { AuthProvider } from "./auth/authContext.jsx";
 import PrivateRoute from "./components/PrivateRoute";
-import NavBar from "./components/NavBar.jsx";
+import NavBar from "./Components/NavBar.jsx";
 import Logout from "./components/Logout.jsx";
 import DeleteAccount from "./components/DeleteAccount.jsx";
 import Repositories from "./Pages/Repositories.jsx";
 import RepoDetails from "./features/RepoDetails.jsx";
 import CreateRepository from "./features/CreateRepository.jsx";
+
 
 function PrivateLayout() {
   return (
@@ -36,6 +39,8 @@ export default function App() {
 
           <Route element={<PrivateLayout />}>
             <Route path="/home" element={<SyncGridHome />} />
+            <Route path="/codebot" element={<Codebot />} />
+            <Route path="/compiler" element={<Compiler />} />
             <Route path="/user/:id" element={<Dashboard />} />
             <Route path="/addSync" element={<SyncGridSetup />} />
             <Route path="/logout" element={<Logout />} />

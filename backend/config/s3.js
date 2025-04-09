@@ -1,4 +1,7 @@
 import AWS from "aws-sdk";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 // Initialize AWS SDK for Backblaze B2
 const s3 = new AWS.S3({
@@ -10,7 +13,9 @@ const s3 = new AWS.S3({
 
 
 // Extract bucket name from env
+
 const BUCKET_NAME = process.env.B2_BUCKET;
+console.log(BUCKET_NAME);
 
 // Export S3 instance and bucket name
 export { s3, BUCKET_NAME };

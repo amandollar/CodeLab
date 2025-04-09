@@ -52,11 +52,20 @@ const NavBar = () => {
                 Repositories
               </Link>
               <Link
-                to="#"
+                to="/codebot"
                 className="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Settings
+                SyncBot
               </Link>
+
+
+              <Link
+                to="/compiler"
+                className="text-gray-400 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                SyncPiler
+              </Link>
+              
             </nav>
           </div>
 

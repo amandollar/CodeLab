@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import path from "path";
 import { s3, BUCKET_NAME } from "../config/s3.js";
+console.log(BUCKET_NAME);
 
 /**
  * Uploads a single file to S3
