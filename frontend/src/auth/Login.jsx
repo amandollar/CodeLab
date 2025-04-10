@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -11,17 +12,22 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      setLoading(true);
       const res = await axios.post("http://localhost:7878/user/login", {
-        email: email,
-        password: password,
+        email,
+        password,
       });
+
       const { token } = res.data;
       localStorage.setItem("token", token);
+      toast.success("Login successful!");
       navigate("/home");
     } catch (err) {
       console.error(err);
+      const message =
+        err.response?.data?.message || "Login failed. Please try again.";
+      toast.error(message);
     } finally {
       setLoading(false);
     }

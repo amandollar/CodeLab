@@ -1,26 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     setLoading(true);
+
     try {
-      setLoading(true);
       const res = await axios.post("http://localhost:7878/user/signUp", {
-        email: email,
-        username: username,
-        password: password,
+        email: email.trim(),
+        username: username.trim(),
+        password: password.trim(),
       });
-      console.log(res);
+
+      if (res.status === 200) {
+        toast.success("Registered successfully! Please log in.");
+        localStorage.setItem("justSignedUp", email);
+        navigate("/login");
+      }
     } catch (err) {
       console.error(err);
+      toast.error(
+        err.response?.data?.message || "Something went wrong. Try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -81,7 +92,6 @@ function Signup() {
 
           <button
             type="submit"
-            // onClick={handleSignup}
             disabled={loading}
             className={`w-full py-2 px-4 font-semibold rounded-lg focus:outline-none
               ${

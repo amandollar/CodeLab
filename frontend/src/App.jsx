@@ -17,7 +17,8 @@ import RepoDetails from "./features/repositories/RepoDetails.jsx";
 import CreateRepository from "./features/repositories/CreateRepository.jsx";
 import CreateIssue from "./features/Issues/CreateIssue.jsx";
 import IssueDetails from "./features/Issues/IssueDetails.jsx";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // <- make sure this is here
 
 function PrivateLayout() {
   return (
@@ -32,6 +33,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        {/* ✅ Add ToastContainer here so it works globally */}
+        <ToastContainer position="top-center" theme="dark" />
+        
         <Routes>
           <Route>
             <Route path="/" element={<Landing />} />
