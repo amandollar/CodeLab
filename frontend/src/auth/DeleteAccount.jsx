@@ -22,7 +22,7 @@ const DeleteAccount = () => {
     try {
       const res = Axios.delete(`http://localhost:7878/user/deleteProfile/${userId}`, {
         headers: {
-          Authorization: `bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       console.log(res);

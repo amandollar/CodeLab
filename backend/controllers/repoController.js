@@ -65,7 +65,6 @@ async function fetchRepoForCurrentUser(req, res) {
     if (!repositories || repositories.length == 0) {
       return res.status(404).json({ error: "User Repositories not found!" });
     }
-    console.log(repositories);
     res.json({ message: "Repositories found!", repositories });
   } catch (err) {
     console.error("Error during fetching user repositories : ", err.message);
@@ -100,13 +99,13 @@ async function updateRepoById(req, res) {
 
 async function toggleVisibiltyRepo(req, res) {
   const { id } = req.params;
-  console.log(id)
+  console.log(id);
   try {
     const repository = await Repository.findById(id);
     if (!repository) {
       return res.status(404).json({ error: "Repository not found!" });
     }
-    console.log(repository)
+    console.log(repository);
 
     repository.visibility = !repository.visibility;
 
