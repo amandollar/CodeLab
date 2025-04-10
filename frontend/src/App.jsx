@@ -11,10 +11,12 @@ import { AuthProvider } from "./auth/authContext.jsx";
 import PrivateRoute from "./components/PrivateRoute";
 import NavBar from "./Components/NavBar.jsx";
 import Logout from "./components/Logout.jsx";
-import DeleteAccount from "./components/DeleteAccount.jsx";
+import DeleteAccount from "./auth/DeleteAccount.jsx";
 import Repositories from "./Pages/Repositories.jsx";
-import RepoDetails from "./features/RepoDetails.jsx";
-import CreateRepository from "./features/CreateRepository.jsx";
+import RepoDetails from "./features/repositories/RepoDetails.jsx";
+import CreateRepository from "./features/repositories/CreateRepository.jsx";
+import CreateIssue from "./features/Issues/CreateIssue.jsx";
+import IssueDetails from "./features/Issues/IssueDetails.jsx";
 
 
 function PrivateLayout() {
@@ -46,6 +48,8 @@ export default function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/repos" element={<Repositories />} />
             <Route path="/repo/:id" element={<RepoDetails />} />
+            <Route path="/repo/:id/issue/new" element={<CreateIssue />} />
+            <Route path="/repo/:id/issue/:id" element={<IssueDetails />} />
             <Route path="/repo/new" element={<CreateRepository />} />
             <Route path="/delete_account" element={<DeleteAccount />} />
           </Route>

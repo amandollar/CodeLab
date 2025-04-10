@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaRegTrashAlt } from "react-icons/fa";
+import IssueSection from "../Issues/IssueSection.jsx";
 
 const RepoDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [repo, setRepo] = useState(null);
+  const [repoIssue, setRepoIssue] = useState(null);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const token = localStorage.getItem("token");
@@ -22,8 +24,19 @@ const RepoDetails = () => {
         setLoading(false);
       }
     };
+    const fetchRepoIssues = async () => {
+      try {
+        const res = await axios.get(`http://localhost:7878/issue/all`);
+        setRepoIssue(res.data.issues);
+      } catch (error) {
+        console.error("Error fetching repository:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchRepo();
-  }, [id]);
+    fetchRepoIssues();
+  }, [id, repoIssue]);
 
   if (loading) {
     return (
@@ -161,26 +174,7 @@ const RepoDetails = () => {
               </tbody>
             </table>
           </div>
-
-          {/* README Section */}
-          <div className="border border-gray-700 rounded p-4">
-            <h2 className="text-xl font-semibold mb-2">Add a README</h2>
-            <p className="text-gray-300">This is a project</p>
-          </div>
-
-          {/* Issues Section (displayed below the README) */}
-          <div className="border border-gray-700 rounded p-4 mt-4">
-            <h2 className="text-xl font-semibold mb-2">Issues</h2>
-            {extendedRepo.issues && extendedRepo.issues.length > 0 ? (
-              <ul className="list-disc list-inside">
-                {extendedRepo.issues.map((issue, index) => (
-                  <li key={index}>{issue.title}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>No issues found.</p>
-            )}
-          </div>
+          <IssueSection extendedRepo={extendedRepo} id={id} />
         </div>
 
         {/** Right Sidebar */}
