@@ -225,17 +225,17 @@ const Dashboard = () => {
                   className="mx-auto text-indigo-400 mb-2"
                   size={24}
                 />
-                <div className="text-xl font-bold">12</div>
+                <div className="text-xl font-bold">0{repos.length}</div>
                 <div className="text-gray-400 text-sm">Active Syncs</div>
               </div>
               <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 text-center">
                 <FiUsers className="mx-auto text-indigo-400 mb-2" size={24} />
-                <div className="text-xl font-bold">8</div>
+                <div className="text-xl font-bold">08</div>
                 <div className="text-gray-400 text-sm">Collaborators</div>
               </div>
               <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 text-center">
                 <FiStar className="mx-auto text-indigo-400 mb-2" size={24} />
-                <div className="text-xl font-bold">24</div>
+                <div className="text-xl font-bold">00</div>
                 <div className="text-gray-400 text-sm">Starred</div>
               </div>
             </div>
