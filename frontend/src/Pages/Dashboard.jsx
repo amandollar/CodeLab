@@ -250,16 +250,6 @@ const Dashboard = () => {
             {/* Repositories Section */}
             <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
               <div className="flex items-center justify-between px-6 py-4 border-b border-gray-700">
-                <div className="relative">
-                  <FiSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" />
-                  <input
-                    type="text"
-                    placeholder="Search repositories..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 bg-gray-900 rounded border border-gray-700 focus:outline-none focus:border-indigo-500 text-gray-100"
-                  />
-                </div>
                 <button
                   onClick={() => navigate(`/repo/new`)}
                   className="flex items-center px-3 py-1 bg-indigo-600 hover:bg-indigo-500 rounded text-white"
