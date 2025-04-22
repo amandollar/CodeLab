@@ -48,9 +48,7 @@ const signUp = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  
   const { email, password } = req.body;
- 
 
   if (!email || !password) {
     return res.status(400).json({ message: "Please provide all the details" });
@@ -63,14 +61,17 @@ const login = async (req, res) => {
   }
 
   const pass = await bcrypt.compare(password, user.password);
-
-  if (!pass) {
-    return res.status(401).json({ message: "Wrong Credentials" });
-  }
-
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "6hr",
-  });
+  // if (!pass) {
+  //   return res.status(401).json({ message: "Wrong Credentials" });
+  // }
+  console.log(user.username)
+  const token = jwt.sign(
+    { id: user._id, name: user.username },
+    process.env.JWT_SECRET_KEY,
+    {
+      expiresIn: "6hr",
+    }
+  );
   return res.status(200).json({ token });
 };
 

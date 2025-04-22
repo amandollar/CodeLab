@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import defaultAvatar from "../../public/defaultProfile.jpeg";
 import {
   FiUser,
   FiMail,
@@ -121,14 +121,21 @@ const Dashboard = () => {
           <div className="w-full md:w-1/3 space-y-8">
             <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
               <div className="bg-gray-700 p-6 text-center">
-                <img
-                  src={userDetails.avatar}
-                  alt={`${userDetails.firstName} ${userDetails.lastName}`}
-                  className="h-24 w-24 rounded-full border-2 border-indigo-500 mx-auto mb-4"
-                />
-                <h1 className="text-xl font-bold">
-                  {userDetails.firstName} {userDetails.lastName}
-                </h1>
+                {userDetails.avatar === undefined ? (
+                  <img
+                    src="../../public/defaultProfile.jpeg"
+                    alt={`${userDetails.firstName} ${userDetails.lastName}`}
+                    className="h-24 w-24 rounded-full  mx-auto mb-6"
+                  />
+                ) : (
+                  <img
+                    src={userDetails.avatar}
+                    alt={`${userDetails.firstName} ${userDetails.lastName}`}
+                    className="h-24 w-24 rounded-full border-2 border-indigo-500 mx-auto mb-4"
+                  />
+                )}
+
+                <h1 className="text-xl font-bold">{userDetails.username}</h1>
                 <p className="text-gray-400">@{userDetails._id}</p>
               </div>
               <div className="p-6">
@@ -225,17 +232,17 @@ const Dashboard = () => {
                   className="mx-auto text-indigo-400 mb-2"
                   size={24}
                 />
-                <div className="text-xl font-bold">12</div>
+                <div className="text-xl font-bold">0{repos.length}</div>
                 <div className="text-gray-400 text-sm">Active Syncs</div>
               </div>
               <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 text-center">
                 <FiUsers className="mx-auto text-indigo-400 mb-2" size={24} />
-                <div className="text-xl font-bold">8</div>
+                <div className="text-xl font-bold">08</div>
                 <div className="text-gray-400 text-sm">Collaborators</div>
               </div>
               <div className="bg-gray-800 rounded-lg border border-gray-700 p-4 text-center">
                 <FiStar className="mx-auto text-indigo-400 mb-2" size={24} />
-                <div className="text-xl font-bold">24</div>
+                <div className="text-xl font-bold">00</div>
                 <div className="text-gray-400 text-sm">Starred</div>
               </div>
             </div>

@@ -8,6 +8,7 @@ const NavBar = () => {
   const token = localStorage.getItem("token");
   const [Sidebarvisible, setSidebarVisible] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState(null);
   const openSidebar = () => {
     setSidebarVisible(true);
   };
@@ -15,6 +16,8 @@ const NavBar = () => {
     try {
       const decoded = jwtDecode(token);
       setUserId(decoded.id || decoded._id);
+      setUsername(decoded.name || "You");
+
     } catch (e) {
       console.error("Token decoding failed", e);
     }
@@ -92,6 +95,7 @@ const NavBar = () => {
             visible={Sidebarvisible}
             onClose={() => setSidebarVisible(false)}
             userId={userId}
+            name={username}
           />
         </div>
       </div>

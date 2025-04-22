@@ -13,7 +13,7 @@ import { FaStar, FaBuilding, FaUserFriends, FaHeart } from "react-icons/fa";
 import { BsPeople, BsBoxSeam, BsRobot, BsClipboardCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-const Sidebar = ({ visible = false, onClose , userId}) => {
+const Sidebar = ({ visible = false, onClose, userId, name }) => {
   return (
     <div
       className={`fixed inset-0 z-50 bg-neutral-900/50 transition-opacity duration-300 ${
@@ -33,7 +33,7 @@ const Sidebar = ({ visible = false, onClose , userId}) => {
               size="30"
               className="text-white bg-gray-800 p-1.5 rounded-full"
             />
-            Rishu Kumar
+            {userId ? `${name}` : "You"}
           </h2>
           <FiX
             size="25"
@@ -54,7 +54,7 @@ const Sidebar = ({ visible = false, onClose , userId}) => {
           </li>
           <li>
             <Link
-              to="/repositories"
+              to={userId ? `/user/${userId}` : "#"}
               className="flex items-center gap-3 hover:text-gray-300"
             >
               <BsBoxSeam /> Your repositories
@@ -62,15 +62,15 @@ const Sidebar = ({ visible = false, onClose , userId}) => {
           </li>
           <li>
             <Link
-              to="/copilot"
+              to="/codebot"
               className="flex items-center gap-3 hover:text-gray-300"
             >
-              <BsRobot /> Your Copilot
+              <BsRobot /> Your Sync Bot
             </Link>
           </li>
           <li>
             <Link
-              to="/projects"
+              to={userId ? `/user/${userId}` : "#"}
               className="flex items-center gap-3 hover:text-gray-300"
             >
               <BsClipboardCheck /> Your projects
@@ -78,7 +78,7 @@ const Sidebar = ({ visible = false, onClose , userId}) => {
           </li>
           <li>
             <Link
-              to="/stars"
+              to={userId ? `/user/${userId}` : "#"}
               className="flex items-center gap-3 hover:text-gray-300"
             >
               <FaStar /> Your stars
@@ -86,26 +86,10 @@ const Sidebar = ({ visible = false, onClose , userId}) => {
           </li>
           <li>
             <Link
-              to="/organizations"
+              to={userId ? `/user/${userId}` : "#"}
               className="flex items-center gap-3 hover:text-gray-300"
             >
               <FaBuilding /> Your organizations
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/enterprises"
-              className="flex items-center gap-3 hover:text-gray-300"
-            >
-              <FiGlobe /> Your enterprises
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/sponsors"
-              className="flex items-center gap-3 hover:text-gray-300"
-            >
-              <FaHeart /> Your sponsors
             </Link>
           </li>
           <li>
